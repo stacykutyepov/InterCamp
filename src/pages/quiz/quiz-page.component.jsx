@@ -4,6 +4,7 @@ import QuestionPreview from "../../components/question-preview/question-preview.
 import { connect } from "react-redux";
 
 import { BackToAllButton } from "../../components/custom-button/custom-button.component";
+
 import {
   firestore,
   convertCollectionsSnapshotToMap,
@@ -25,23 +26,27 @@ class QuizPage extends React.Component {
     });
   }
   render() {
-    const { match } = this.props;
+    const { match, questions } = this.props;
     const id = match.params.quizId;
-    const addToFav = true;
     return (
       <div className="quiz-page">
         <div className="button-container">
           <BackToAllButton />
         </div>
         <h1>Welcome to {id.toUpperCase()} Challenge</h1>
-        <QuestionPreview quizId={id} addToFav={addToFav} />
+        <QuestionPreview quizId={id} addToFav={true} questionsObj={questions}/>
       </div>
     );
   }
 }
+const mapStateToProps = (state) => {
+  // console.log(state.quiz.questions);
+  return { questions: state.quiz.questions };
+};
 
 const mapDispatchToProps = (dispatch) => ({
   updateQuestions: (collectionsMap) =>
     dispatch(updateQuestions(collectionsMap)),
 });
-export default connect(null, mapDispatchToProps)(QuizPage);
+export default connect(mapStateToProps, mapDispatchToProps)(QuizPage);
+

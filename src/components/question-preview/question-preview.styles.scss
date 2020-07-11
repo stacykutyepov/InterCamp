@@ -27,13 +27,16 @@
   }
 
   .some-space {
-    width: 22.5px;
+    min-width: 22.5px;
     height: 22.5px;
   }
 }
 .quiz-buttons {
   display: flex;
   justify-content: space-around;
+  .custom-button{
+    width: 48%;
+  }
 }
 
 .question-count {
@@ -50,6 +53,7 @@
     width: 100%;
     .question-text{
       font-size: 1rem;
+      min-height: 140px;
     }
   }
 }
